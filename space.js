@@ -1,11 +1,11 @@
 const costs= [
- { name: '喝奶茶', cost: 18 },
-  { name: '买衣服', cost: 200 },
-  { name: '看电影', cost: 24 },
-  { name: '午餐', cost: 59 },
-  { name: '晚餐', cost: 50 },
-  { name: '宵夜', cost: -34 },  
-  { name: '买水', cost: -3 }  
+ { name: '喝奶茶', cost: 18 ,type : '购物'},
+  { name: '买衣服', cost: 200 ,type : '购物'},
+  { name: '看电影', cost: 24 ,type : '娱乐'},
+  { name: '午餐', cost: 59 , type : '餐饮'},
+  { name: '晚餐', cost: 50 , type : '餐饮'},
+  { name: '宵夜', cost: -34, type : '餐饮' },  
+  { name: '买水', cost: -3 , type : '餐饮'}  
 ];
 
 const cleanCosts = (list) => list.filter(s => s.cost >= 0 );
@@ -47,3 +47,10 @@ try {
   console.error('报告生成失败：', err.message);
 }
 
+const CostType=(list)=>[...list].sort((a,b)=>{
+  if(a.type!==b.type){
+    return a.type.localeCompare(b. type , 'zh-CN' );
+  }
+  return a.cost-b.cost;
+});
+console.table(CostType(costs));
