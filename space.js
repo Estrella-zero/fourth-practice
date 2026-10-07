@@ -35,8 +35,15 @@ const report = (list) => {
     return '没有有效消费记录';
   }
 const total = valid.reduce((sum, item) => sum + item.cost, 0);
+const CostType=(list)=>[...list].sort((a,b)=>{
+  if(a.type!==b.type){
+    return a.type.localeCompare(b. type , 'zh-CN' );
+  }
+  return a.cost-b.cost;
+});
+console.table(CostType(costs));
 const dist = levelCount(valid);
-  return `有效记录${valid.length}笔，总花费${total}元，最低消费${lowest(valid).cost}元（${highest(valid).name})，最高消费${highest(valid).cost}元（${highest(valid).name}）；
+  return `有效记录${valid.length}笔，总花费${total}元，最低消费${lowest(valid).cost}元（${lowest(valid).name})，最高消费${highest(valid).cost}元（${highest(valid).name}）；
 消费等级分布：高${dist.高}笔 中${dist.中}笔 低${dist.低}笔；
 小额消费（<50元）：${low(valid).join('、') || '无'}`;
 };
@@ -47,10 +54,3 @@ try {
   console.error('报告生成失败：', err.message);
 }
 
-const CostType=(list)=>[...list].sort((a,b)=>{
-  if(a.type!==b.type){
-    return a.type.localeCompare(b. type , 'zh-CN' );
-  }
-  return a.cost-b.cost;
-});
-console.table(CostType(costs));
